@@ -189,6 +189,14 @@ return StreamingResponse(gen(), media_type="text/plain")
 
 可以，没数量限制。`name` 唯一就行。两个服务名字相同会冲突 → 老的会被覆盖。
 
+**生产部署强烈建议合并到一个 daemon**：
+线上跑多个 svc 时，一个 daemon 注册 N 个 svc，比 N 个 daemon 各注册一个要好。理由：
+1. **一个 libp2p 端口（4001）就够** — 云平台安全组只放行 4001 即可，不用为每个 anchor 单开端口；
+2. **共享 ANS / gossip 状态**，邻居发现一次拉走所有 svc 元数据，少一次握手；
+3. **DID 统一**，svc 之间内部互相调用直接走 loopback，不走 P2P 一圈。
+
+只有当某个 svc 必须有独立 DID（声誉隔离、独立计费身份）时才单起 daemon。这条经验来自把官方 emax bootstrap 上 `demo-echo / demo-worker / practice-board` 三个独立 daemon 合并到一个 daemon 后，跨主机调用 latency 从 ~500ms 直接降到 ~280ms（少一次 circuit-relay 握手 + 不再受云防火墙端口数量限制）。
+
 ---
 
 ## Q10. WebSocket 模式（bidi-ws）SDK 怎么用？

@@ -28,7 +28,7 @@ icon: "rocket"
 
 ```bash
 curl -fsSL https://agentnetwork.org.cn/install.sh | sh
-anet --version          # 验证装上了，输出形如 1.1.10
+anet --version          # 验证装上了，输出形如 1.1.13（最低 1.1.10）
 anet help | head -3
 ```
 

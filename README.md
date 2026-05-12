@@ -70,6 +70,16 @@ cd ../examples/01-echo-svc && bash run.sh
 - 计费精度是整数 micro-credit，浮点请自行换算；
 - 不内置鉴权 — 谁知道你的 service name 都能调；要做白名单就在 backend 里检查 `X-Agent-DID`。
 
+## 关联 kit
+
+这个 kit 教你**怎么写一个 P2P 服务**（个人 agent / SDK 路径）。
+
+如果你的诉求是**给一家公司 / 组织部署一个域内 mesh**（成员邀请、域内目录、域内任务板、签名事件），看姐妹 kit：
+
+→ [**anet-org-starter-kit**](https://github.com/ChatChatTech/anet-org-starter-kit)（需要 anet ≥ 1.1.13，自带 Concord）
+
+两个 kit 解耦：member 端在域里完全可以用本 starter-kit 写出的 service，加 `--org=<name>` 就自动域内化。
+
 ## 下一步
 
 读 [THEMES.md](THEMES.md) 选个方向，然后从 [tutorials/00-setup.md](tutorials/00-setup.md) 开始。
